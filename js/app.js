@@ -6,7 +6,7 @@ $(function () {
             "Santa Coxinha", 
             "Bar do Vito Avenida Zelina", 
             "Chocofesta Avenida Zelina", 
-            "Droga 20 Vila Zelina",
+            "Natoguedes Vila Zelina",
             "Padaria A Praça  Vila Zelina" 
         ]
 
