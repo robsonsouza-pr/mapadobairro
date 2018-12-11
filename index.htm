@@ -3,8 +3,27 @@
     <head>
         <title> Mapa do Bairro </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="css/style.css">
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script src="http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyD8A-YKgZkoEdX_37QgqQLL-99U-PUmBzo"></script> 
+       
     </head>
-    <body></body>
+
+    <body>
+<di class="flex-box"v>
+        <div id="menu" class="flex-item">
+            <select id="selectLocation">
+                <option>Selecione:</option>
+            </select>
+            <button id="filterLocation">Filtrar</button>
+            <ul id="locations"></ul>
+        </div>
+
+        <div id="map" class="flex-item"></div>
+    </div>
+        
+        <script src="js/jQuery.js"></script>
+        <script src="js/app.js"></script>
+
+    </body>
 </html>
