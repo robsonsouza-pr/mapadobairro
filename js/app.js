@@ -85,6 +85,7 @@ function initMap() {
     }
 
     function getContent(pontoTuristico) {
+        console.log(pontoTuristico.nome.length);
         if (pontoTuristico.nome.length > 0) {
             return '<div id="content">'+
                                     '<div id="siteNotice">'+
@@ -149,7 +150,7 @@ function initMap() {
                     '&m=foursquare'
                 }).done(function (data) {
                         let venue = data.response.venues ? data.response.venues[0] : "";
-                       // pontoTuristico.name = venue.name;
+                        pontoTuristico.nome = venue.name;
                         pontoTuristico.endereco = venue.location.address;
                         pontoTuristico.chekin = venue.stats.checkinsCount;
                     });
