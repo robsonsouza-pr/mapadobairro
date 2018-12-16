@@ -71,6 +71,7 @@ function initMap() {
         this.marker = "";
         this.chekin = "";
         this.endereco = "";
+        this.url = "";
     };
 
     function toggleBounce(marker) {
@@ -95,6 +96,7 @@ function initMap() {
                                     '<p> Endereço: '+pontoTuristico.endereco+'</p>'+
                                     '<p> Chekins: '+pontoTuristico.chekin+'</p>'+
                                     '</div>'+
+                                    '<div><a href="https://pt.foursquare.com/" target="_blank">Mais informações em Foursquare</a></div>'+
                                     '</div>';
          } else {
             return 'Não foram encontradas informações no FourSquare';
@@ -150,9 +152,11 @@ function initMap() {
                     '&m=foursquare'
                 }).done(function (data) {
                         let venue = data.response.venues ? data.response.venues[0] : "";
+                        console.log(venue);
                         pontoTuristico.nome = venue.name;
                         pontoTuristico.endereco = venue.location.address;
                         pontoTuristico.chekin = venue.stats.checkinsCount;
+                        pontoTuristico.url = venue.shorturl;
                     });
             });
         });
@@ -188,3 +192,9 @@ function initMap() {
 function ErrorOccurred() {
     document.getElementById('Maperror').style.display = 'block';
 }
+
+function gm_authFailure() {
+    let mapview = document.getElementById('map')
+    mapview.innerHTML =
+      '<p>Não foi possível carregar o Google Maps.<br> Por favor, recarregue a página.</p>'
+  }
