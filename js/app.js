@@ -66,29 +66,37 @@ function initMap() {
 
     var PontoTuristico = function (data) {
         var self = this;
-        this.name = ko.observable(data.Title);
+        this.nome = ko.observable(data.Title);
         this.location = data.location;
         this.marker = "";
         this.chekin = "";
         this.endereco = "";
-
     };
 
-    function getContent(view) {
-        var contentString = '<div id="content">'+
+    function toggleBounce(marker) {
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function () {
+                marker.setAnimation(null);
+            }, 700);
+        }
+    }
+
+    function getContent(pontoTuristico) {
+        if (pontoTuristico.nome.length > 0) {
+            return '<div id="content">'+
                                     '<div id="siteNotice">'+
                                     '</div>'+
-                                    '<h1 id="firstHeading" class="firstHeading">'+view.name+'</h1>'+
+                                    '<h1 id="firstHeading" class="firstHeading">'+pontoTuristico.nome+'</h1>'+
                                     '<div id="bodyContent">'+
-                                    '<p> Endereço: '+view.endereco+'</p>'+
-                                    '<p> Chekins: '+view.chekin+'</p>'+
+                                    '<p> Endereço: '+pontoTuristico.endereco+'</p>'+
+                                    '<p> Chekins: '+pontoTuristico.chekin+'</p>'+
                                     '</div>'+
                                     '</div>';
-        let errorString = "Não foram encontradas informações no FourSquare";
-        if (view.name.length > 0) {
-            return contentString;
-        } else {
-            return errorString;
+         } else {
+            return 'Não foram encontradas informações no FourSquare';
         }
     }
 
@@ -139,10 +147,9 @@ function initMap() {
                     '&client_secret= EWIJQM4JTAWZ4I1W10VG00KECP32D0TDIUWG3SSOM20KUNUK' +
                     '&v=20140806' +
                     '&m=foursquare'
-                })
-                    .done(function (data) {
+                }).done(function (data) {
                         let venue = data.response.venues ? data.response.venues[0] : "";
-                        pontoTuristico.name = venue.name;
+                       // pontoTuristico.name = venue.name;
                         pontoTuristico.endereco = venue.location.address;
                         pontoTuristico.chekin = venue.stats.checkinsCount;
                     });
@@ -163,7 +170,7 @@ function initMap() {
                 });
             } else {
                 return ko.utils.arrayFilter(this.listaPontosTuristicos(), function (item) {
-                    if (item.name.toLowerCase().indexOf(search) >= 0) {
+                    if (item.nome.toLowerCase().indexOf(search) >= 0) {
                         item.marker.setVisible(true);
                         return true;
                     } else {
@@ -175,4 +182,8 @@ function initMap() {
         }, this);
     }
     ko.applyBindings(new ViewModel());
+}
+
+function ErrorOccurred() {
+    document.getElementById('Maperror').style.display = 'block';
 }

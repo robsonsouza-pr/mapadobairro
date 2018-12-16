@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=1">
     <link rel="stylesheet" href="css/app.css">
     <title>Mapa da vizinhança</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsf7suYXpAJHs_8RDlc1Wntl_CieY3zlA&v=3&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsf7suYXpAJHs_8RDlc1Wntl_CieY3zlA&v=3&callback=initMap"
+    onerror="ErrorOccurred()"></script>
 </head>
 
 <body>
@@ -23,6 +23,13 @@
             </form>
         </div>
     </header>
+    <div id="Maperror">
+        <span> Algo deu errado, verifique as seguintes possibilidades:</span>
+        <ul>
+            <li>Verifique a sua conexão com a  internet.</li>
+            <li>Se o mapa não aparecer, tente novamente após algumas horas.</li>
+        </ul>
+    </div>
     <div class="sidebar" data-bind="click:navClick,css:{'sidebar-active':isNavOpen}">
         <ul class="results" id="results" data-bind="foreach: filteredViewList">
             <li class="place" id="place" data-bind="text:name, click:$parent.itemClicked"></li>
@@ -30,6 +37,7 @@
     </div>
     <div id="map"></div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
 <script  src="js/app.js"> </script>
 </html>
